@@ -1,0 +1,39 @@
+library(lcmm)
+m1 <- hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+           subject = 'hos_number', ng = 1,
+           data = dat)
+
+m2 <- gridsearch(rep = 5, maxiter = 10, minit = m1,
+                 hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+                      mixture = ~ poly(day, degree = 2, raw = TRUE), 
+                      subject = 'hos_number', ng = 2,
+                      data = dat)
+)
+
+m3 <- gridsearch(rep = 5, maxiter = 10, minit = m1,
+                 hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+                      mixture = ~ poly(day, degree = 2, raw = TRUE), 
+                      subject = 'hos_number', ng = 3,
+                      data = dat) )
+
+m4 <- gridsearch(rep = 5, maxiter = 10, minit = m1,
+                 hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+                      mixture = ~ poly(day, degree = 2, raw = TRUE), 
+                      subject = 'hos_number', ng = 4,
+                      data = dat))
+
+m5 <- gridsearch(rep = 5, maxiter = 10, minit = m1,
+                 hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+                      mixture = ~ poly(day, degree = 2, raw = TRUE), 
+                      subject = 'hos_number', ng = 5,
+                      data = dat))
+
+m6 <- gridsearch(rep = 5, maxiter = 10, minit = m1,
+                 hlme(plt ~ poly(day, degree = 2, raw = TRUE),
+                      mixture = ~ poly(day, degree = 2, raw = TRUE), 
+                      subject = 'hos_number', ng = 6,
+                      data = dat))
+
+summarytable(m1,m2,m3,m4,m5,m6,
+             which = c("G", "loglik", "conv", "npm", "AIC", 
+                       "BIC", "SABIC", "entropy", "%class"))
